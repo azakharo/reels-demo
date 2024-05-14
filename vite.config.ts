@@ -22,5 +22,13 @@ export default () => {
       open: true,
       port: 4000,
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // This is necessary for producing single output JS file
+          inlineDynamicImports: true,
+        }
+      }
+    }
   });
 };

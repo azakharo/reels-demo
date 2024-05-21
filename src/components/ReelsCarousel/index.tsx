@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import Slider from 'react-slick';
 
-import ReelVideo from 'src/components/ReelVideo';
+import CarouselItem from 'src/components/ReelsCarousel/CarouselItem';
 import {Reel} from 'src/types';
 import styles from './styles.module.sass';
 
@@ -15,7 +15,7 @@ interface Props {
 const carouselSettings = {
   dots: false,
   arrows: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   variableWidth: true,
   swipeToSlide: true,
@@ -25,9 +25,7 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
   return (
     <Slider {...carouselSettings} className={styles.root}>
       {reels.map(reel => {
-        return (
-          <ReelVideo key={reel.id} reel={reel} width="264px" height="470px" />
-        );
+        return <CarouselItem key={reel.id} reel={reel} width="264px" />;
       })}
     </Slider>
   );

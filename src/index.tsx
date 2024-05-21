@@ -1,5 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import {StyledEngineProvider} from '@mui/material';
 
 import ReelsCarousel from 'src/components/ReelsCarousel';
 import {Reel} from 'src/types';
@@ -16,7 +17,7 @@ const reels: Reel[] = [
     duration: 15,
     imageUrl:
       'https://img.freepik.com/free-photo/female-mannequin-gray-studio_155003-12117.jpg?t=st=1715691906~exp=1715695506~hmac=329a9fdc2c053aed24dee86303c4622b93c963ff93335cf20d0123875d649233&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/3iXYXwStYMk?si=oyXxmfT3whxc4xx8',
   },
   {
     id: 2,
@@ -24,15 +25,16 @@ const reels: Reel[] = [
     duration: 21,
     imageUrl:
       'https://img.freepik.com/free-photo/war-conflict-landscape-with-soldiers-hiding_23-2149766333.jpg?t=st=1715692611~exp=1715696211~hmac=09fee0dcd37518da3cc66d41258b4a724ec18d4a61e7c05ac3eb15105569cf42&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/8i8rWUnL6p4?si=uICJhJs9nG123j9v',
   },
   {
     id: 3,
     title: 'NASA предрекает высадку людей на Марс в 2040 году',
     duration: 34,
     imageUrl:
-      'https://img.freepik.com/free-photo/space-galaxy-background_53876-93122.jpg?t=st=1715692901~exp=1715696501~hmac=c26c682b659d60a9cc4c6ac62c751b2f475fd74381ce97282121b290df4d321e&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+      'https://img.freepik.com/free-photo/low-angle-shot-tall-city-building-with-blue-sky-background-new-york_181624-20345.jpg?t=st=1715696744~exp=1715700344~hmac=6654e7b922889d92580852ebcde9966dffcbd078ab507070608ab170906466ac&w=264',
+    videoUrl:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
   },
   {
     id: 4,
@@ -40,7 +42,7 @@ const reels: Reel[] = [
     duration: 19,
     imageUrl:
       'https://img.freepik.com/free-photo/broker-looking-laptop-analyzing-stock-market-invest-trading-stocks-graph_169016-47428.jpg?t=st=1715692971~exp=1715696571~hmac=d4142ef672f2d1f5383a3c0b78cd667493e0d43a08f4ae107c9f36fbf39ec819&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/EaEmahoM5qo?si=RSx0r4-5bF_YcZVG',
   },
   {
     id: 5,
@@ -97,7 +99,9 @@ widgetDivs.forEach(div => {
   const root = createRoot(div);
   root.render(
     <React.StrictMode>
-      <ReelsCarousel reels={reels} />
+      <StyledEngineProvider injectFirst>
+        <ReelsCarousel reels={reels} />
+      </StyledEngineProvider>
     </React.StrictMode>,
   );
 });

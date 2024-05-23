@@ -1,8 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import Slider from 'react-slick';
 
-import CarouselItem from 'src/components/ReelsCarousel/CarouselItem';
 import {Reel} from 'src/types';
+import openFullScreenViewer from '../FullScreenViewer';
+import CarouselItem from './CarouselItem';
 import styles from './styles.module.sass';
 
 import 'slick-carousel/slick/slick.css';
@@ -22,10 +23,37 @@ const carouselSettings = {
 };
 
 const ReelsCarousel: FC<Props> = ({reels}) => {
+  const [openedReel, setOpenedReel] = useState<Reel | null>(null);
+
+  const handleItemClick = (clickedReel: Reel) => {
+    console.log('clicked', {clickedReel});
+    setOpenedReel(clickedReel);
+
+    openFullScreenViewer({
+      reel: clickedReel,
+    })
+      .then(() => {
+        console.log('resolved');
+        return 0;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
+  console.log({openedReel});
+
   return (
     <Slider {...carouselSettings} className={styles.root}>
       {reels.map(reel => {
-        return <CarouselItem key={reel.id} reel={reel} width="264px" />;
+        return (
+          <CarouselItem
+            key={reel.id}
+            reel={reel}
+            width="264px"
+            onClick={handleItemClick}
+          />
+        );
       })}
     </Slider>
   );

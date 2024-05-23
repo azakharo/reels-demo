@@ -6,7 +6,7 @@ import {format} from 'date-fns';
 import {PlayerState} from 'src/components/Player/Player.reducer';
 import {limitString} from 'src/utils/limitString';
 
-const titleLengthLimit = 50;
+const titleLengthLimit = 80;
 const sliderThumbSize = 12; // px
 
 const StyledPlayerControls = styled('div')`

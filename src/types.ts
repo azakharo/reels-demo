@@ -5,3 +5,9 @@ export interface Reel {
   videoUrl: string;
   duration: number;
 }
+
+/////////////////////////////////////////////////
+// Dialogs
+export type DialogDefaultResolveResult = unknown;
+export type DialogRejectReason = 'cancel' | 'close';
+/////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import ModalContainer from 'react-modal-promise';
 import {StyledEngineProvider} from '@mui/material';
 
 import ReelsCarousel from 'src/components/ReelsCarousel';
@@ -101,6 +102,7 @@ widgetDivs.forEach(div => {
     <React.StrictMode>
       <StyledEngineProvider injectFirst>
         <ReelsCarousel reels={reels} />
+        <ModalContainer />
       </StyledEngineProvider>
     </React.StrictMode>,
   );

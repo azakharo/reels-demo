@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dispatch} from 'react';
+import {Dispatch, MouseEvent} from 'react';
 import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
@@ -12,7 +12,14 @@ import {
 } from 'src/components/Player/Player.reducer';
 
 const buttonColor = 'rgba(255, 255, 255, 0.7)';
-const playPauseButtonStyles = {
+
+const commonIconButtonStyles = {
+  '&:hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  },
+};
+
+const playPauseIconStyles = {
   fontSize: 64,
   color: buttonColor,
 };
@@ -44,28 +51,39 @@ interface Props {
 }
 
 const PlayerOverlay: React.FC<Props> = ({state, dispatch}) => {
+  const handleOverlayClick = (event: MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+
+    dispatch({type: PlayerActionType.TOGGLE_PLAY});
+  };
+
   return (
-    <StyledPlayerOverlay state={state} className={'video-player__overlay'}>
+    <StyledPlayerOverlay
+      state={state}
+      className={'video-player__overlay'}
+      onClick={handleOverlayClick}
+    >
       {/* Play / Pause button */}
-      <IconButton
-        onClick={() => dispatch({type: PlayerActionType.TOGGLE_PLAY})}
-      >
+      <IconButton onClick={handleOverlayClick} sx={commonIconButtonStyles}>
         {state.playing ? (
-          <PauseRounded sx={playPauseButtonStyles} />
+          <PauseRounded sx={playPauseIconStyles} />
         ) : (
-          <PlayArrowRounded sx={playPauseButtonStyles} />
+          <PlayArrowRounded sx={playPauseIconStyles} />
         )}
       </IconButton>
 
       {/* Volume button */}
       <IconButton
-        onClick={() => {
+        onClick={(event: MouseEvent<HTMLElement>) => {
+          event.stopPropagation();
+
           alert('Не реализовано');
         }}
         sx={{
           position: 'absolute',
           top: 12,
           left: 12,
+          ...commonIconButtonStyles,
         }}
       >
         <VolumeUpIcon

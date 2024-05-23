@@ -13,7 +13,7 @@ export interface PlayerState {
 }
 
 export const INITIAL_STATE: PlayerState = {
-  playing: false,
+  playing: true,
   controls: false,
   volume: 0.8,
   // changing this prop doesn't affect "light" prop of the player
@@ -21,7 +21,7 @@ export const INITIAL_STATE: PlayerState = {
   playedSeconds: 0,
   duration: 0,
   loop: false,
-  muted: true,
+  muted: false,
   playbackRate: 1,
 };
 
@@ -33,12 +33,6 @@ export enum PlayerActionType {
   SEEK = 'SEEK',
   VOLUME = 'VOLUME',
   LIGHT = 'LIGHT',
-  /////////////////////////////////////////////////////////
-  // actions related to playing on hover
-  PREVIEW_HOVER_START = 'PREVIEW_HOVER_START',
-  INLINE_VIDEO_HOVER_END = 'INLINE_VIDEO_HOVER_END',
-  INLINE_VIDEO_CLICK = 'INLINE_VIDEO_CLICK',
-  /////////////////////////////////////////////////////////
 }
 
 export interface PlayAction {
@@ -77,18 +71,6 @@ export interface LightAction {
   payload: boolean | string | ReactElement;
 }
 
-export interface PreviewHoverStartAction {
-  type: PlayerActionType.PREVIEW_HOVER_START;
-}
-
-export interface InlineVideoHoverEndAction {
-  type: PlayerActionType.INLINE_VIDEO_HOVER_END;
-}
-
-export interface InlineVideoClickAction {
-  type: PlayerActionType.INLINE_VIDEO_CLICK;
-}
-
 export type PlayerAction =
   | PlayAction
   | PauseAction
@@ -96,10 +78,7 @@ export type PlayerAction =
   | DurationAction
   | SeekAction
   | VolumeAction
-  | LightAction
-  | PreviewHoverStartAction
-  | InlineVideoHoverEndAction
-  | InlineVideoClickAction;
+  | LightAction;
 
 export const reducer = (
   state: PlayerState,
@@ -126,28 +105,6 @@ export const reducer = (
     }
     case PlayerActionType.LIGHT: {
       return {...state, light: action.payload};
-    }
-    case PlayerActionType.PREVIEW_HOVER_START: {
-      return {
-        ...state,
-        // muted: true,
-        playing: true,
-        light: false,
-      };
-    }
-    case PlayerActionType.INLINE_VIDEO_HOVER_END: {
-      return {
-        ...state,
-        // muted: false,
-        playing: false,
-        light: true,
-      };
-    }
-    case PlayerActionType.INLINE_VIDEO_CLICK: {
-      return {
-        ...state,
-        // muted: false,
-      };
     }
     default: {
       return state;

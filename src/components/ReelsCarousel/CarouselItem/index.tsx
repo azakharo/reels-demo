@@ -1,25 +1,26 @@
 import {FC} from 'react';
 
-import Player from 'src/components/Player';
 import {Reel} from 'src/types';
+import InlineVideo from './InlineVideo';
 import styles from './styles.module.sass';
 
 interface Props {
   reel: Reel;
-  width?: string; // any valid html size
+  width: string; // any valid html size
+  onClick: (clickedReel: Reel) => void;
 }
 
-const CarouselItem: FC<Props> = ({reel, width}) => {
-  const {title, videoUrl, imageUrl, duration} = reel;
+const CarouselItem: FC<Props> = ({reel, width, onClick}) => {
+  const {title} = reel;
 
   return (
     <div className={styles.container} style={{width}}>
-      <Player
-        url={videoUrl}
+      <InlineVideo
+        reel={reel}
         width={width}
-        light={imageUrl}
-        title={title}
-        externalDuration={duration}
+        // TODO rem hard-coded height
+        height="470px"
+        onClick={onClick}
       />
 
       <div className={styles.title}>{title}</div>

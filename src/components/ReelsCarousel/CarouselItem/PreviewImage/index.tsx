@@ -9,6 +9,7 @@ interface Props {
   height: string; // any valid html size
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
+  onClick: MouseEventHandler<HTMLDivElement>;
 }
 
 const PreviewImage: FC<Props> = ({
@@ -18,6 +19,7 @@ const PreviewImage: FC<Props> = ({
   height,
   onMouseEnter,
   onMouseLeave,
+  onClick,
 }) => {
   return (
     <div
@@ -25,6 +27,7 @@ const PreviewImage: FC<Props> = ({
       style={{width, height}}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={onClick}
     >
       <img src={imageUrl} alt={'Фото'} className={styles.image} />
 

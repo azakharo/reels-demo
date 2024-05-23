@@ -28,6 +28,12 @@ const InlineVideo: FC<Props> = ({reel, width, height, onClick}) => {
         setHovering(true);
         setPlaying(true);
       }}
+      onClick={event => {
+        event.stopPropagation();
+        setHovering(false);
+        setPlaying(false);
+        onClick(reel);
+      }}
     />
   );
 

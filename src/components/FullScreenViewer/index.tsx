@@ -1,27 +1,53 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import {create, InstanceProps} from 'react-modal-promise';
 import CloseIcon from '@mui/icons-material/Close';
 import {IconButton, Modal} from '@mui/material';
 
 import Player from 'src/components/Player';
-import {DialogDefaultResolveResult, Reel} from 'src/types';
+import {Reel} from 'src/types';
 import styles from './styles.module.sass';
 
-interface Props extends InstanceProps<DialogDefaultResolveResult> {
-  reel: Reel;
+// Returns current reel
+interface Props extends InstanceProps<Reel> {
+  reels: Reel[];
+  initialReel: Reel;
 }
 
-const FullScreenViewer: FC<Props> = ({reel, onResolve}) => {
-  const {videoUrl, title} = reel;
+const FullScreenViewer: FC<Props> = ({reels, initialReel, onResolve}) => {
+  const [currentReel, setCurrentReel] = useState<Reel>(initialReel);
+  const {videoUrl, title} = currentReel;
+
+  const currentReelIndex = reels.findIndex(r => r.id === currentReel.id);
+  const canGoPrev = currentReelIndex > 0;
+  const canGoNext =
+    currentReelIndex >= 0 && currentReelIndex < reels.length - 1;
+
+  const handlePrev = useCallback(() => {
+    const prevReel = reels[currentReelIndex - 1] as Reel;
+    setCurrentReel(prevReel);
+  }, [currentReelIndex, setCurrentReel, reels]);
+
+  const handleNext = useCallback(() => {
+    const nextReel = reels[currentReelIndex + 1] as Reel;
+    setCurrentReel(nextReel);
+  }, [currentReelIndex, setCurrentReel, reels]);
+
+  const handleClose = useCallback(() => {
+    onResolve(currentReel);
+  }, [onResolve, currentReel]);
 
   return (
-    <Modal onClose={() => onResolve()} open={true}>
+    <Modal onClose={handleClose} open={true}>
       <div className={styles.container}>
         {/* Player */}
         <Player
           url={videoUrl}
           title={title}
           containerClassName={styles.player}
+          canGoPrev={canGoPrev}
+          onGoPrev={handlePrev}
+          canGoNext={canGoNext}
+          onGoNext={handleNext}
         />
 
         {/* Close icon */}
@@ -34,7 +60,7 @@ const FullScreenViewer: FC<Props> = ({reel, onResolve}) => {
           }}
           size="large"
           aria-label="close"
-          onClick={() => onResolve()}
+          onClick={handleClose}
           className={styles.closeButton}
         >
           <CloseIcon

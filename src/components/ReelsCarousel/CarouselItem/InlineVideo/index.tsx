@@ -56,6 +56,7 @@ const InlineVideo: FC<Props> = ({reel, width, height, onClick}) => {
           height={height}
           muted={true}
           playing={playing}
+          className={styles.player}
         />
 
         <div

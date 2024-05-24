@@ -3,6 +3,7 @@ import ReactPlayer, {ReactPlayerProps} from 'react-player';
 import {OnProgressProps} from 'react-player/base';
 import {styled} from '@mui/material';
 
+import {VideoCarousel} from 'src/components/Player/types';
 import {
   INITIAL_STATE,
   PlayerActionType,
@@ -41,7 +42,7 @@ const StyledPlayer = styled('div')<StyledPlayerProps>`
   }
 `;
 
-interface Props extends ReactPlayerProps {
+interface Props extends ReactPlayerProps, VideoCarousel {
   title: string;
   containerClassName?: string;
 }
@@ -52,6 +53,10 @@ const Player: React.FC<Props> = ({
   title,
   width,
   containerClassName,
+  canGoPrev,
+  onGoPrev,
+  canGoNext,
+  onGoNext,
   ...restProps
 }) => {
   const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
@@ -76,7 +81,7 @@ const Player: React.FC<Props> = ({
     // Seek to 0 has to be done with a delay. Otherwise doesn't work.
     setTimeout(() => {
       dispatch({type: PlayerActionType.SEEK, payload: 0});
-    }, 500);
+    }, 1000);
   };
 
   const handleProgress = (event: OnProgressProps) => {
@@ -118,7 +123,14 @@ const Player: React.FC<Props> = ({
         {...restProps}
       />
 
-      <PlayerOverlay state={state} dispatch={dispatch} />
+      <PlayerOverlay
+        state={state}
+        dispatch={dispatch}
+        canGoPrev={canGoPrev}
+        onGoPrev={onGoPrev}
+        canGoNext={canGoNext}
+        onGoNext={onGoNext}
+      />
 
       {!state.controls && !state.light && (
         <PlayerControls title={title} state={state} playerRef={playerRef} />

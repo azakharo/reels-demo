@@ -2,14 +2,17 @@ import * as React from 'react';
 import {Dispatch, MouseEvent} from 'react';
 import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
+import NextIcon from '@mui/icons-material/SkipNext';
+import PrevIcon from '@mui/icons-material/SkipPrevious';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import {IconButton, styled} from '@mui/material';
+import {IconButton, Stack, styled} from '@mui/material';
 
 import {
   PlayerAction,
   PlayerActionType,
   PlayerState,
 } from 'src/components/Player/Player.reducer';
+import {VideoCarousel} from 'src/components/Player/types';
 
 const buttonColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -21,6 +24,11 @@ const commonIconButtonStyles = {
 
 const playPauseIconStyles = {
   fontSize: 64,
+  color: 'white',
+};
+
+const prevNextIconStyles = {
+  fontSize: 48,
   color: buttonColor,
 };
 
@@ -45,12 +53,19 @@ const StyledPlayerOverlay = styled('div')<StyledPlayerOverlayProps>`
   border-top-right-radius: 8px;
 `;
 
-interface Props {
+interface Props extends VideoCarousel {
   state: PlayerState;
   dispatch: Dispatch<PlayerAction>;
 }
 
-const PlayerOverlay: React.FC<Props> = ({state, dispatch}) => {
+const PlayerOverlay: React.FC<Props> = ({
+  state,
+  dispatch,
+  canGoPrev,
+  onGoPrev,
+  canGoNext,
+  onGoNext,
+}) => {
   const handleOverlayClick = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
 
@@ -63,14 +78,53 @@ const PlayerOverlay: React.FC<Props> = ({state, dispatch}) => {
       className={'video-player__overlay'}
       onClick={handleOverlayClick}
     >
-      {/* Play / Pause button */}
-      <IconButton onClick={handleOverlayClick} sx={commonIconButtonStyles}>
-        {state.playing ? (
-          <PauseRounded sx={playPauseIconStyles} />
-        ) : (
-          <PlayArrowRounded sx={playPauseIconStyles} />
+      <Stack
+        direction="row"
+        spacing={2}
+        alignItems="center"
+        justifyContent={onGoNext && onGoPrev ? 'space-between' : 'center'}
+        sx={{
+          width: '100%',
+        }}
+        p={2}
+      >
+        {/* Prev button */}
+        {onGoPrev && (
+          <IconButton
+            onClick={event => {
+              event.stopPropagation();
+              onGoPrev();
+            }}
+            sx={commonIconButtonStyles}
+            disabled={!canGoPrev}
+          >
+            {canGoPrev && <PrevIcon sx={prevNextIconStyles} />}
+          </IconButton>
         )}
-      </IconButton>
+
+        {/* Play / Pause button */}
+        <IconButton onClick={handleOverlayClick} sx={commonIconButtonStyles}>
+          {state.playing ? (
+            <PauseRounded sx={playPauseIconStyles} />
+          ) : (
+            <PlayArrowRounded sx={playPauseIconStyles} />
+          )}
+        </IconButton>
+
+        {/* Next button */}
+        {onGoNext && (
+          <IconButton
+            onClick={event => {
+              event.stopPropagation();
+              onGoNext();
+            }}
+            sx={commonIconButtonStyles}
+            disabled={!canGoNext}
+          >
+            {canGoNext && <NextIcon sx={prevNextIconStyles} />}
+          </IconButton>
+        )}
+      </Stack>
 
       {/* Volume button */}
       <IconButton

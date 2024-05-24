@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useRef} from 'react';
 import Slider from 'react-slick';
 
 import {Reel} from 'src/types';
@@ -23,28 +23,25 @@ const carouselSettings = {
 };
 
 const ReelsCarousel: FC<Props> = ({reels}) => {
-  const [openedReel, setOpenedReel] = useState<Reel | null>(null);
+  const sliderRef = useRef<Slider>(null);
 
   const handleItemClick = (clickedReel: Reel) => {
-    console.log('clicked', {clickedReel});
-    setOpenedReel(clickedReel);
-
     openFullScreenViewer({
-      reel: clickedReel,
+      reels,
+      initialReel: clickedReel,
     })
-      .then(() => {
-        console.log('resolved');
+      .then((lastViewedReel: Reel) => {
+        const reelIndex = reels.findIndex(r => r.id === lastViewedReel.id);
+        sliderRef.current?.slickGoTo(reelIndex, true);
         return 0;
       })
       .catch(err => {
-        console.error(err);
+        console.warn('Unexpected: onResolve() must be always used', err);
       });
   };
 
-  console.log({openedReel});
-
   return (
-    <Slider {...carouselSettings} className={styles.root}>
+    <Slider {...carouselSettings} className={styles.root} ref={sliderRef}>
       {reels.map(reel => {
         return (
           <CarouselItem

@@ -59,7 +59,7 @@ const reels: Reel[] = [
     duration: 16,
     imageUrl:
       'https://img.freepik.com/free-photo/aerial-view-busy-highway-intersection-full-traffic-daytime_181624-46287.jpg?t=st=1715696464~exp=1715700064~hmac=9cc74ad901e8869e0459aa794cce3cdd7fb9c46029be2fbf22eba98a6656779e&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/QI3zTb1Kuyo?si=auIqLfNXDXDLJyIj',
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ const reels: Reel[] = [
     duration: 27,
     imageUrl:
       'https://img.freepik.com/free-photo/black-mini-coupe-road_114579-5056.jpg?t=st=1715696575~exp=1715700175~hmac=69998f3443293de7a622df07f740236e56e70bda9ba38cb05ca67cfe2522fcc8&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/roOgNmITdGc?si=3444H_E2tvSosplb',
   },
   {
     id: 8,
@@ -75,7 +75,7 @@ const reels: Reel[] = [
     duration: 41,
     imageUrl:
       'https://img.freepik.com/free-photo/vertical-shot-white-building-clear-sky_181624-4575.jpg?t=st=1715696722~exp=1715700322~hmac=bf8f12cf26bb123345d46c46b11941fa47f43ba0898813c683418d9034561427&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/6AzOAL2LqDA?si=rqG8YxFA3oxYN78u',
   },
   {
     id: 9,
@@ -83,7 +83,7 @@ const reels: Reel[] = [
     duration: 15,
     imageUrl:
       'https://img.freepik.com/free-photo/low-angle-shot-tall-city-building-with-blue-sky-background-new-york_181624-20345.jpg?t=st=1715696744~exp=1715700344~hmac=6654e7b922889d92580852ebcde9966dffcbd078ab507070608ab170906466ac&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/S753b7W1bUQ?si=S7Hi8DPeiErDt3RX',
   },
   {
     id: 10,
@@ -91,7 +91,7 @@ const reels: Reel[] = [
     duration: 34,
     imageUrl:
       'https://img.freepik.com/free-photo/nadir-shoot-crystal-building_1112-417.jpg?t=st=1715696762~exp=1715700362~hmac=b636e102fa2df2eb8c4dfe4fd1e00e7da660173d7ca304d21b42967fb6b47759&w=264',
-    videoUrl: 'https://www.youtube.com/embed/6ZFahsrOsMw',
+    videoUrl: 'https://youtube.com/shorts/XcYnCadTtqc?si=By0YktDQas7eAVjM',
   },
 ];
 

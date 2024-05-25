@@ -2,12 +2,17 @@ import React, {FC, useRef} from 'react';
 import Slider from 'react-slick';
 
 import {Reel} from 'src/types';
+import {isMobileOrTablet} from 'src/utils/systemInfo';
 import openFullScreenViewer from '../FullScreenViewer';
+import openFullScreenViewerMobile from '../FullScreenViewerMobile';
 import CarouselItem from './CarouselItem';
 import styles from './styles.module.sass';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+const isPhoneOrTablet = isMobileOrTablet();
+
+const openFullScreen = isPhoneOrTablet
+  ? openFullScreenViewerMobile
+  : openFullScreenViewer;
 
 interface Props {
   reels: Reel[];
@@ -26,7 +31,7 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
   const sliderRef = useRef<Slider>(null);
 
   const handleItemClick = (clickedReel: Reel) => {
-    openFullScreenViewer({
+    openFullScreen({
       reels,
       initialReel: clickedReel,
     })

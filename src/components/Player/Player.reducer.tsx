@@ -10,6 +10,11 @@ export interface PlayerState {
   loop: boolean;
   muted: boolean;
   playbackRate: number;
+  // For mobile and tablet only.
+  // If user tap on the screen (on free space, not on any button), we need to show the controls.
+  // This state is for that.
+  // It's reset to false after timeout or on subsequent click.
+  isTapped: boolean;
 }
 
 export const INITIAL_STATE: PlayerState = {
@@ -23,6 +28,7 @@ export const INITIAL_STATE: PlayerState = {
   loop: false,
   muted: false,
   playbackRate: 1,
+  isTapped: false,
 };
 
 export enum PlayerActionType {
@@ -33,6 +39,7 @@ export enum PlayerActionType {
   SEEK = 'SEEK',
   VOLUME = 'VOLUME',
   LIGHT = 'LIGHT',
+  TAP = 'TAP',
 }
 
 export interface PlayAction {
@@ -71,6 +78,11 @@ export interface LightAction {
   payload: boolean | string | ReactElement;
 }
 
+export interface TapAction {
+  type: PlayerActionType.TAP;
+  payload: boolean;
+}
+
 export type PlayerAction =
   | PlayAction
   | PauseAction
@@ -78,7 +90,8 @@ export type PlayerAction =
   | DurationAction
   | SeekAction
   | VolumeAction
-  | LightAction;
+  | LightAction
+  | TapAction;
 
 export const reducer = (
   state: PlayerState,
@@ -105,6 +118,9 @@ export const reducer = (
     }
     case PlayerActionType.LIGHT: {
       return {...state, light: action.payload};
+    }
+    case PlayerActionType.TAP: {
+      return {...state, isTapped: action.payload};
     }
     default: {
       return state;

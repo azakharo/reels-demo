@@ -7,6 +7,8 @@ import ReelsCarousel from 'src/components/ReelsCarousel';
 import {Reel} from 'src/types';
 
 import './reset.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // Find all widget divs
 const widgetDivs = document.querySelectorAll('.reels-widget');

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dispatch, MouseEvent} from 'react';
+import {Dispatch, MouseEvent, useEffect, useRef} from 'react';
 import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import NextIcon from '@mui/icons-material/SkipNext';
@@ -13,6 +13,7 @@ import {
   PlayerState,
 } from 'src/components/Player/Player.reducer';
 import {VideoCarousel} from 'src/components/Player/types';
+import {isMobileOrTablet} from 'src/utils/systemInfo';
 
 const buttonColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -66,11 +67,41 @@ const PlayerOverlay: React.FC<Props> = ({
   canGoNext,
   onGoNext,
 }) => {
+  const refTappedStateTimeout = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const isPhoneOrTablet = isMobileOrTablet();
+
   const handleOverlayClick = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
 
-    dispatch({type: PlayerActionType.TOGGLE_PLAY});
+    if (isPhoneOrTablet) {
+      const currentTapState = state.isTapped;
+      dispatch({type: PlayerActionType.TAP, payload: !state.isTapped});
+      if (!currentTapState) {
+        if (refTappedStateTimeout.current !== null) {
+          clearTimeout(refTappedStateTimeout.current);
+          refTappedStateTimeout.current = null;
+        }
+
+        // we have just set tapped to true
+        refTappedStateTimeout.current = setTimeout(() => {
+          dispatch({type: PlayerActionType.TAP, payload: false});
+        }, 2000);
+      }
+    } else {
+      dispatch({type: PlayerActionType.TOGGLE_PLAY});
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      if (refTappedStateTimeout.current !== null) {
+        clearTimeout(refTappedStateTimeout.current);
+        refTappedStateTimeout.current = null;
+      }
+    };
+  }, []);
 
   return (
     <StyledPlayerOverlay
@@ -103,7 +134,13 @@ const PlayerOverlay: React.FC<Props> = ({
         )}
 
         {/* Play / Pause button */}
-        <IconButton onClick={handleOverlayClick} sx={commonIconButtonStyles}>
+        <IconButton
+          onClick={event => {
+            event.stopPropagation();
+            dispatch({type: PlayerActionType.TOGGLE_PLAY});
+          }}
+          sx={commonIconButtonStyles}
+        >
           {state.playing ? (
             <PauseRounded sx={playPauseIconStyles} />
           ) : (

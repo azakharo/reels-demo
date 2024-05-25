@@ -4,6 +4,7 @@ import {OnProgressProps} from 'react-player/base';
 import {styled} from '@mui/material';
 
 import {VideoCarousel} from 'src/components/Player/types';
+import {isMobileOrTablet} from 'src/utils/systemInfo';
 import {
   INITIAL_STATE,
   PlayerActionType,
@@ -12,6 +13,8 @@ import {
 } from './Player.reducer';
 import PlayerControls from './PlayerControls';
 import PlayerOverlay from './PlayerOverlay';
+
+const isPhoneOrTablet = isMobileOrTablet();
 
 interface StyledPlayerProps {
   state: PlayerState;
@@ -30,15 +33,33 @@ const StyledPlayer = styled('div')<StyledPlayerProps>`
     border-radius: 8px;
   }
 
+  // on desktop
   &:hover {
     .video-player__overlay,
     .video-player__controls {
-      opacity: 1;
+      opacity: ${isPhoneOrTablet ? 0 : 1};
     }
   }
 
+  // on mobile or table
+  .video-player__overlay,
   .video-player__controls {
-    opacity: ${({state}) => (state.light ? '0' : state.playing ? '0' : '1')};
+    opacity: ${({state}) =>
+      isPhoneOrTablet && state.isTapped ? '1 !important' : 0};
+  }
+
+  .video-player__controls {
+    opacity: ${({state}) => {
+      if (state.light) {
+        return 0;
+      }
+
+      if (state.playing && !state.isTapped) {
+        return 0;
+      }
+
+      return 1;
+    }};
   }
 `;
 

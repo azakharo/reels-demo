@@ -23,18 +23,12 @@ interface StyledPlayerProps {
 
 const StyledPlayer = styled('div')<StyledPlayerProps>`
   position: relative;
-  border-radius: 8px;
   aspect-ratio: 9 / 16;
   width: ${({width}) => width};
   background-color: black;
 
   @media (orientation: landscape) {
     max-height: 100dvh;
-  }
-
-  video,
-  iframe {
-    border-radius: 8px;
   }
 
   // on desktop

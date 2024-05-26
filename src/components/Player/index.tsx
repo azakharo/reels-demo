@@ -28,6 +28,10 @@ const StyledPlayer = styled('div')<StyledPlayerProps>`
   width: ${({width}) => width};
   background-color: black;
 
+  @media (orientation: landscape) {
+    max-height: 100dvh;
+  }
+
   video,
   iframe {
     border-radius: 8px;

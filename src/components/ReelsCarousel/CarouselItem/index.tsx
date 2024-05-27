@@ -1,8 +1,15 @@
 import {FC} from 'react';
 
 import {Reel} from 'src/types';
+import {isMobileOrTablet} from 'src/utils/systemInfo';
 import InlineVideo from './InlineVideo';
+import PreviewImage from './PreviewImage';
 import styles from './styles.module.sass';
+
+const isPhoneOrTablet = isMobileOrTablet();
+
+// TODO rem hard-coded height
+const height = '470px';
 
 interface Props {
   reel: Reel;
@@ -11,17 +18,26 @@ interface Props {
 }
 
 const CarouselItem: FC<Props> = ({reel, width, onClick}) => {
-  const {title} = reel;
+  const {title, duration, imageUrl} = reel;
 
   return (
     <div className={styles.container} style={{width}}>
-      <InlineVideo
-        reel={reel}
-        width={width}
-        // TODO rem hard-coded height
-        height="470px"
-        onClick={onClick}
-      />
+      {isPhoneOrTablet ? (
+        <PreviewImage
+          duration={duration}
+          imageUrl={imageUrl}
+          width={width}
+          height={height}
+          onClick={() => onClick(reel)}
+        />
+      ) : (
+        <InlineVideo
+          reel={reel}
+          width={width}
+          height={height}
+          onClick={onClick}
+        />
+      )}
 
       <div className={styles.title}>{title}</div>
     </div>

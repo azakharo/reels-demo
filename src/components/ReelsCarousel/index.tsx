@@ -1,4 +1,4 @@
-import React, {FC, useRef} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import Slider from 'react-slick';
 
 import {Reel} from 'src/types';
@@ -28,9 +28,14 @@ const carouselSettings = {
 };
 
 const ReelsCarousel: FC<Props> = ({reels}) => {
+  const [changing, setChanging] = useState(false);
   const sliderRef = useRef<Slider>(null);
 
   const handleItemClick = (clickedReel: Reel) => {
+    if (changing) {
+      return;
+    }
+
     openFullScreen({
       reels,
       initialReel: clickedReel,
@@ -46,7 +51,17 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
   };
 
   return (
-    <Slider {...carouselSettings} className={styles.root} ref={sliderRef}>
+    <Slider
+      {...carouselSettings}
+      className={styles.root}
+      ref={sliderRef}
+      beforeChange={() => {
+        setChanging(true);
+      }}
+      afterChange={() => {
+        setChanging(false);
+      }}
+    >
       {reels.map(reel => {
         return (
           <CarouselItem

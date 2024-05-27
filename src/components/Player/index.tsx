@@ -139,6 +139,7 @@ const Player: React.FC<Props> = ({
         onClickPreview={handleClickPreview}
         width="100%"
         height="100%"
+        playsinline={true}
         {...restProps}
       />
 

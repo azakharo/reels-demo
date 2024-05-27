@@ -33,6 +33,8 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
 
   const handleItemClick = (clickedReel: Reel) => {
     if (changing) {
+      // While dragging, need to ignore the click.
+      // The click is started when start dragging and finished when release mouse button.
       return;
     }
 

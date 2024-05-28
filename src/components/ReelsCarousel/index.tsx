@@ -1,5 +1,6 @@
 import React, {FC, useRef, useState} from 'react';
 import Slider from 'react-slick';
+import {Typography} from '@mui/material';
 
 import {Reel} from 'src/types';
 import {isMobileOrTablet} from 'src/utils/systemInfo';
@@ -53,28 +54,41 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
   };
 
   return (
-    <Slider
-      {...carouselSettings}
-      className={styles.root}
-      ref={sliderRef}
-      beforeChange={() => {
-        setChanging(true);
-      }}
-      afterChange={() => {
-        setChanging(false);
-      }}
-    >
-      {reels.map(reel => {
-        return (
-          <CarouselItem
-            key={reel.id}
-            reel={reel}
-            width="264px"
-            onClick={handleItemClick}
-          />
-        );
-      })}
-    </Slider>
+    <>
+      <Typography
+        sx={{
+          fontSize: 18,
+          fontWeight: 700,
+          lineHeight: '21.6px',
+        }}
+        mb={2.5}
+      >
+        Популярные сюжеты
+      </Typography>
+
+      <Slider
+        {...carouselSettings}
+        className={styles.root}
+        ref={sliderRef}
+        beforeChange={() => {
+          setChanging(true);
+        }}
+        afterChange={() => {
+          setChanging(false);
+        }}
+      >
+        {reels.map(reel => {
+          return (
+            <CarouselItem
+              key={reel.id}
+              reel={reel}
+              width="264px"
+              onClick={handleItemClick}
+            />
+          );
+        })}
+      </Slider>
+    </>
   );
 };
 

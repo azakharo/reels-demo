@@ -1,5 +1,7 @@
 import {ReactElement} from 'react';
 
+import {isIOS} from 'src/utils/systemInfo';
+
 export interface PlayerState {
   playing: boolean;
   controls: boolean;
@@ -17,8 +19,9 @@ export interface PlayerState {
   isTapped: boolean;
 }
 
+// noinspection RedundantConditionalExpressionJS
 export const INITIAL_STATE: PlayerState = {
-  playing: true,
+  playing: isIOS ? false : true,
   controls: false,
   volume: 0.8,
   // changing this prop doesn't affect "light" prop of the player

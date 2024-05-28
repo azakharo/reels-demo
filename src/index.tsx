@@ -23,7 +23,7 @@ const reels: Reel[] = [
     duration: 15,
     imageUrl:
       'https://img.freepik.com/free-photo/female-mannequin-gray-studio_155003-12117.jpg?t=st=1715691906~exp=1715695506~hmac=329a9fdc2c053aed24dee86303c4622b93c963ff93335cf20d0123875d649233&w=264',
-    videoUrl: getIzVideoUrl('turn-around.mp4'),
+    videoUrl: getIzVideoUrl('jive-girl2.mp4'),
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const reels: Reel[] = [
     duration: 34,
     imageUrl:
       'https://img.freepik.com/free-photo/low-angle-shot-tall-city-building-with-blue-sky-background-new-york_181624-20345.jpg?t=st=1715696744~exp=1715700344~hmac=6654e7b922889d92580852ebcde9966dffcbd078ab507070608ab170906466ac&w=264',
-    videoUrl: getIzVideoUrl('jive-girl2.mp4'),
+    videoUrl: getIzVideoUrl('greatest-hits.mp4 '),
   },
   {
     id: 4,
@@ -55,7 +55,7 @@ const reels: Reel[] = [
     duration: 22,
     imageUrl:
       'https://img.freepik.com/premium-photo/cropped-hand-man-using-mobile-phone_1048944-2087593.jpg?w=264',
-    videoUrl: getIzVideoUrl('move-body.mp4'),
+    videoUrl: getIzVideoUrl('hits.mp4'),
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ const reels: Reel[] = [
     duration: 27,
     imageUrl:
       'https://img.freepik.com/free-photo/black-mini-coupe-road_114579-5056.jpg?t=st=1715696575~exp=1715700175~hmac=69998f3443293de7a622df07f740236e56e70bda9ba38cb05ca67cfe2522fcc8&w=264',
-    videoUrl: getIzVideoUrl('in-sync.mp4'),
+    videoUrl: getIzVideoUrl('flips.mp4'),
   },
   {
     id: 8,
@@ -95,7 +95,7 @@ const reels: Reel[] = [
     duration: 34,
     imageUrl:
       'https://img.freepik.com/free-photo/nadir-shoot-crystal-building_1112-417.jpg?t=st=1715696762~exp=1715700362~hmac=b636e102fa2df2eb8c4dfe4fd1e00e7da660173d7ca304d21b42967fb6b47759&w=264',
-    videoUrl: getIzVideoUrl('inside-out.mp4'),
+    videoUrl: getIzVideoUrl('on-heel.mp4'),
   },
 ];
 

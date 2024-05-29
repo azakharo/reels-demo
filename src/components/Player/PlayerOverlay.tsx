@@ -4,8 +4,7 @@ import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import NextIcon from '@mui/icons-material/SkipNext';
 import PrevIcon from '@mui/icons-material/SkipPrevious';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import {IconButton, Stack, styled} from '@mui/material';
+import {Box, IconButton, Stack, styled} from '@mui/material';
 
 import {
   PlayerAction,
@@ -14,9 +13,9 @@ import {
 } from 'src/components/Player/Player.reducer';
 import {VideoCarousel} from 'src/components/Player/types';
 import {isMobileOrTablet} from 'src/utils/systemInfo';
+import VolumeChanger from './VolumeChanger';
 
 const buttonColor = 'rgba(255, 255, 255, 0.7)';
-
 const commonIconButtonStyles = {
   '&:hover': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
@@ -103,6 +102,10 @@ const PlayerOverlay: React.FC<Props> = ({
     };
   }, []);
 
+  const handleVolumeChange = (newVolume: number) => {
+    dispatch({type: PlayerActionType.VOLUME, payload: newVolume / 100});
+  };
+
   return (
     <StyledPlayerOverlay
       state={state}
@@ -163,27 +166,18 @@ const PlayerOverlay: React.FC<Props> = ({
         )}
       </Stack>
 
-      {/* Volume button */}
-      <IconButton
-        onClick={(event: MouseEvent<HTMLElement>) => {
-          event.stopPropagation();
-
-          alert('Не реализовано');
-        }}
+      <Box
         sx={{
           position: 'absolute',
           top: 12,
           left: 12,
-          ...commonIconButtonStyles,
         }}
       >
-        <VolumeUpIcon
-          sx={{
-            fontSize: 32,
-            color: buttonColor,
-          }}
+        <VolumeChanger
+          value={state.volume * 100}
+          onChange={handleVolumeChange}
         />
-      </IconButton>
+      </Box>
     </StyledPlayerOverlay>
   );
 };

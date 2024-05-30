@@ -69,12 +69,10 @@ const PlayerOverlay: React.FC<Props> = ({
   const refTappedStateTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
-  const isPhoneOrTablet = isMobileOrTablet();
-
   const handleOverlayClick = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
 
-    if (isPhoneOrTablet) {
+    if (isMobileOrTablet) {
       const currentTapState = state.isTapped;
       dispatch({type: PlayerActionType.TAP, payload: !state.isTapped});
       if (!currentTapState) {

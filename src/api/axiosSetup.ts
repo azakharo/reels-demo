@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const axi = axios.create({
-  baseURL: 'https://reqres.in',
+  baseURL: import.meta.env.VITE_API_URL,
 });

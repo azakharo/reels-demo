@@ -6,8 +6,6 @@ import InlineVideo from './InlineVideo';
 import PreviewImage from './PreviewImage';
 import styles from './styles.module.sass';
 
-const isPhoneOrTablet = isMobileOrTablet();
-
 // TODO rem hard-coded height
 const height = '470px';
 
@@ -22,7 +20,7 @@ const CarouselItem: FC<Props> = ({reel, width, onClick}) => {
 
   return (
     <div className={styles.container} style={{width}}>
-      {isPhoneOrTablet ? (
+      {isMobileOrTablet ? (
         <PreviewImage
           duration={duration}
           imageUrl={imageUrl}

@@ -14,8 +14,6 @@ import {
 import PlayerControls from './PlayerControls';
 import PlayerOverlay from './PlayerOverlay';
 
-const isPhoneOrTablet = isMobileOrTablet();
-
 interface StyledPlayerProps {
   state: PlayerState;
   width?: string; // any valid html size
@@ -35,7 +33,7 @@ const StyledPlayer = styled('div')<StyledPlayerProps>`
   &:hover {
     .video-player__overlay,
     .video-player__controls {
-      opacity: ${isPhoneOrTablet ? 0 : 1};
+      opacity: ${isMobileOrTablet ? 0 : 1};
     }
   }
 
@@ -43,7 +41,7 @@ const StyledPlayer = styled('div')<StyledPlayerProps>`
   .video-player__overlay,
   .video-player__controls {
     opacity: ${({state}) =>
-      isPhoneOrTablet && state.isTapped ? '1 !important' : 0};
+      isMobileOrTablet && state.isTapped ? '1 !important' : 0};
   }
 
   .video-player__controls {

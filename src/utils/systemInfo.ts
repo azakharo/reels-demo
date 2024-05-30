@@ -37,10 +37,9 @@ export const isTouchDevice = (): boolean =>
   navigator.msMaxTouchPoints > 0;
 
 // For desktop "device.type" returns "undefined"
-export const getDeviceType = (): DeviceType => device.type || 'desktop';
+const getDeviceType = (): DeviceType => device.type || 'desktop';
 
-export const isMobileOrTablet = (): boolean => {
-  const deviceType = getDeviceType();
-
-  return deviceType === deviceTypeMobile || deviceType === deviceTypeTablet;
-};
+export const deviceType = getDeviceType();
+export const isMobileOrTablet =
+  deviceType === deviceTypeMobile || deviceType === deviceTypeTablet;
+export const isMobile = getDeviceType() === deviceTypeMobile;

@@ -31,7 +31,7 @@ const PreviewImage: FC<Props> = ({
     >
       <img src={imageUrl} alt={'Фото'} className={styles.image} />
 
-      {duration && <div className={styles.duration}>{duration} сек</div>}
+      {!!duration && <div className={styles.duration}>{duration} сек</div>}
     </div>
   );
 };

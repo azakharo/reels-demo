@@ -9,9 +9,7 @@ import openFullScreenViewerMobile from '../FullScreenViewerMobile';
 import CarouselItem from './CarouselItem';
 import styles from './styles.module.sass';
 
-const isPhoneOrTablet = isMobileOrTablet();
-
-const openFullScreen = isPhoneOrTablet
+const openFullScreen = isMobileOrTablet
   ? openFullScreenViewerMobile
   : openFullScreenViewer;
 

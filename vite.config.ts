@@ -21,6 +21,13 @@ export default () => {
     server: {
       open: true,
       port: 4000,
+      proxy: {
+        "/api": {
+          target: "https://a.iz.env1",
+          changeOrigin: true,
+          secure: false,
+        },
+      },
     },
     build: {
       rollupOptions: {

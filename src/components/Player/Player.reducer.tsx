@@ -43,6 +43,7 @@ export enum PlayerActionType {
   VOLUME = 'VOLUME',
   LIGHT = 'LIGHT',
   TAP = 'TAP',
+  ENDED = 'ENDED',
 }
 
 export interface PlayAction {
@@ -59,6 +60,10 @@ export interface TogglePlayAction {
 
 export interface TogglePlayAction {
   type: PlayerActionType.TOGGLE_PLAY;
+}
+
+export interface EndedAction {
+  type: PlayerActionType.ENDED;
 }
 
 export interface DurationAction {
@@ -94,7 +99,8 @@ export type PlayerAction =
   | SeekAction
   | VolumeAction
   | LightAction
-  | TapAction;
+  | TapAction
+  | EndedAction;
 
 export const reducer = (
   state: PlayerState,
@@ -109,6 +115,9 @@ export const reducer = (
     }
     case PlayerActionType.TOGGLE_PLAY: {
       return {...state, playing: !state.playing};
+    }
+    case PlayerActionType.ENDED: {
+      return {...state, playing: false, playedSeconds: 0};
     }
     case PlayerActionType.DURATION: {
       return {...state, duration: action.payload};

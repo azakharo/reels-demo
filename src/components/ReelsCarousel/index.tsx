@@ -27,11 +27,11 @@ const carouselSettings = {
 };
 
 const ReelsCarousel: FC<Props> = ({reels}) => {
-  const [changing, setChanging] = useState(false);
+  const [sliding, setSliding] = useState(false);
   const sliderRef = useRef<Slider>(null);
 
   const handleItemClick = (clickedReel: Reel) => {
-    if (changing) {
+    if (sliding) {
       // While dragging, need to ignore the click.
       // The click is started when start dragging and finished when release mouse button.
       return;
@@ -69,10 +69,10 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
         className={styles.root}
         ref={sliderRef}
         beforeChange={() => {
-          setChanging(true);
+          setSliding(true);
         }}
         afterChange={() => {
-          setChanging(false);
+          setSliding(false);
         }}
       >
         {reels.map(reel => {

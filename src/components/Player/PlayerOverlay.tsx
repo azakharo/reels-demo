@@ -13,7 +13,7 @@ import {
 } from 'src/components/Player/Player.reducer';
 import {VideoCarousel} from 'src/components/Player/types';
 import {isMobileOrTablet} from 'src/utils/systemInfo';
-import VolumeChanger from './VolumeChanger';
+import VolumeOnOffButton from './VolumeOnOffButton';
 
 const buttonColor = 'rgba(255, 255, 255, 0.7)';
 const commonIconButtonStyles = {
@@ -100,8 +100,8 @@ const PlayerOverlay: React.FC<Props> = ({
     };
   }, []);
 
-  const handleVolumeChange = (newVolume: number) => {
-    dispatch({type: PlayerActionType.VOLUME, payload: newVolume / 100});
+  const handleVolumeOnOffChange = (newVolume: boolean) => {
+    dispatch({type: PlayerActionType.VOLUME, payload: newVolume ? 0.8 : 0});
   };
 
   return (
@@ -171,9 +171,9 @@ const PlayerOverlay: React.FC<Props> = ({
           left: 12,
         }}
       >
-        <VolumeChanger
-          value={state.volume * 100}
-          onChange={handleVolumeChange}
+        <VolumeOnOffButton
+          value={state.volume > 0}
+          onChange={handleVolumeOnOffChange}
         />
       </Box>
     </StyledPlayerOverlay>

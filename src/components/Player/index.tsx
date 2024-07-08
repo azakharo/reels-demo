@@ -94,10 +94,14 @@ const Player: React.FC<Props> = ({
   };
 
   const handleEnded = () => {
-    dispatch({type: PlayerActionType.TOGGLE_PLAY});
+    dispatch({type: PlayerActionType.PAUSE});
     // Seek to 0 has to be done with a delay. Otherwise doesn't work.
     setTimeout(() => {
       dispatch({type: PlayerActionType.SEEK, payload: 0});
+      if (canGoNext && onGoNext) {
+        onGoNext();
+        dispatch({type: PlayerActionType.PLAY});
+      }
     }, 1000);
   };
 

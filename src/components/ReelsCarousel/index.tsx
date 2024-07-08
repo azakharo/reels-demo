@@ -37,6 +37,18 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
       return;
     }
 
+    // Stop playing radio on iz.ru
+    // TODO it should not be here
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (window.radioPlayer?.playing) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
+      window.radioPlayer?.stop({destroy: true});
+    }
+
     openFullScreen({
       reels,
       initialReel: clickedReel,

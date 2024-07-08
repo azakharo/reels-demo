@@ -37,7 +37,8 @@ const FullScreenViewer: FC<Props> = ({reels, initialReel, onResolve}) => {
   }, [onResolve, currentReel]);
 
   return (
-    <Modal onClose={handleClose} open={true}>
+    // TODO workaround navigation overlapping on iz.ru
+    <Modal onClose={handleClose} open={true} sx={{zIndex: 100_000}}>
       <div className={styles.container}>
         {/* Player */}
         <Player

@@ -80,12 +80,10 @@ const Player: React.FC<Props> = ({
   onVolumeOnOffChange,
   ...restProps
 }) => {
-  const [state, dispatch] = React.useReducer(
-    reducer,
-    initialVolume === undefined
-      ? INITIAL_STATE
-      : {...INITIAL_STATE, volume: initialVolume},
-  );
+  const [state, dispatch] = React.useReducer(reducer, {
+    ...INITIAL_STATE,
+    volume: initialVolume === undefined ? INITIAL_STATE.volume : initialVolume,
+  });
   const playerRef = React.useRef<ReactPlayer>(null);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 

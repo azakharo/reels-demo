@@ -27,6 +27,12 @@ interface Props extends InstanceProps<Reel> {
 const FullScreenViewer: FC<Props> = ({reels, initialReel, onResolve}) => {
   const sliderRef = useRef<Slider | null>(null);
   const [currentReel, setCurrentReel] = useState<Reel>(initialReel);
+  const [muted, setMuted] = useState(false);
+
+  const onVolumeOnOffChange = useCallback(
+    (newValue: boolean) => setMuted(!newValue),
+    [setMuted],
+  );
 
   const currentReelIndex = reels.findIndex(r => r.id === currentReel.id);
   const canGoPrev = currentReelIndex > 0;
@@ -80,6 +86,8 @@ const FullScreenViewer: FC<Props> = ({reels, initialReel, onResolve}) => {
                 onGoPrev={handlePrev}
                 canGoNext={canGoNext}
                 onGoNext={handleNext}
+                initialVolume={muted ? 0 : 0.8}
+                onVolumeOnOffChange={onVolumeOnOffChange}
               />
             );
           })}

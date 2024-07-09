@@ -62,6 +62,8 @@ const StyledPlayer = styled('div')<StyledPlayerProps>`
 interface Props extends ReactPlayerProps, VideoCarousel {
   title: string;
   containerClassName?: string;
+  initialVolume?: number;
+  onVolumeOnOffChange?: (newValue: boolean) => void;
 }
 
 const Player: React.FC<Props> = ({
@@ -74,9 +76,16 @@ const Player: React.FC<Props> = ({
   onGoPrev,
   canGoNext,
   onGoNext,
+  initialVolume,
+  onVolumeOnOffChange,
   ...restProps
 }) => {
-  const [state, dispatch] = React.useReducer(reducer, INITIAL_STATE);
+  const [state, dispatch] = React.useReducer(
+    reducer,
+    initialVolume === undefined
+      ? INITIAL_STATE
+      : {...INITIAL_STATE, volume: initialVolume},
+  );
   const playerRef = React.useRef<ReactPlayer>(null);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 
@@ -152,6 +161,7 @@ const Player: React.FC<Props> = ({
         onGoPrev={onGoPrev}
         canGoNext={canGoNext}
         onGoNext={onGoNext}
+        onVolumeOnOffChange={onVolumeOnOffChange}
       />
 
       {!state.controls && !state.light && (

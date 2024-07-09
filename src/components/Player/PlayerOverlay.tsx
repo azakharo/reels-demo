@@ -56,6 +56,7 @@ const StyledPlayerOverlay = styled('div')<StyledPlayerOverlayProps>`
 interface Props extends VideoCarousel {
   state: PlayerState;
   dispatch: Dispatch<PlayerAction>;
+  onVolumeOnOffChange?: (newValue: boolean) => void;
 }
 
 const PlayerOverlay: React.FC<Props> = ({
@@ -65,6 +66,7 @@ const PlayerOverlay: React.FC<Props> = ({
   onGoPrev,
   canGoNext,
   onGoNext,
+  onVolumeOnOffChange,
 }) => {
   const refTappedStateTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null,
@@ -102,6 +104,7 @@ const PlayerOverlay: React.FC<Props> = ({
 
   const handleVolumeOnOffChange = (newVolume: boolean) => {
     dispatch({type: PlayerActionType.VOLUME, payload: newVolume ? 0.8 : 0});
+    onVolumeOnOffChange?.(newVolume);
   };
 
   return (

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {Dispatch, MouseEvent, useEffect, useRef} from 'react';
+import {Dispatch, MouseEvent, useEffect, useMemo, useRef} from 'react';
 import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import NextIcon from '@mui/icons-material/SkipNext';
 import PrevIcon from '@mui/icons-material/SkipPrevious';
-import {Box, IconButton, Stack, styled} from '@mui/material';
+import {Box, IconButton, Stack, styled, useMediaQuery} from '@mui/material';
 
 import {
   PlayerAction,
@@ -20,16 +20,6 @@ const commonIconButtonStyles = {
   '&:hover': {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
-};
-
-const playPauseIconStyles = {
-  fontSize: 64,
-  color: 'white',
-};
-
-const prevNextIconStyles = {
-  fontSize: 48,
-  color: buttonColor,
 };
 
 interface StyledPlayerOverlayProps {
@@ -68,6 +58,25 @@ const PlayerOverlay: React.FC<Props> = ({
   onGoNext,
   onVolumeOnOffChange,
 }) => {
+  const isLandscapeOrientation = useMediaQuery('(orientation: landscape)');
+  const isMobileOrTableLandscape = isLandscapeOrientation && isMobileOrTablet;
+
+  const playPauseIconStyles = useMemo(
+    () => ({
+      fontSize: isMobileOrTableLandscape ? 32 : 64,
+      color: 'white',
+    }),
+    [isMobileOrTableLandscape],
+  );
+
+  const prevNextIconStyles = useMemo(
+    () => ({
+      fontSize: isMobileOrTableLandscape ? 24 : 48,
+      color: buttonColor,
+    }),
+    [isMobileOrTableLandscape],
+  );
+
   const refTappedStateTimeout = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );

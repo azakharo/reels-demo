@@ -69,6 +69,7 @@ const FullScreenViewer: FC<Props> = ({reels, initialReel, onResolve}) => {
           lazyLoad="ondemand"
           initialSlide={currentReelIndex}
           afterChange={handleAfterChange}
+          className={styles.slider}
         >
           {reels.map(reel => {
             if (reel !== currentReel) {

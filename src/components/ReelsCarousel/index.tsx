@@ -49,6 +49,18 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
       window.radioPlayer?.stop({destroy: true});
     }
 
+    // Stop video streaming on iz.ru
+    // TODO it should not be here
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (window.tvPlayer?.status) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
+      window.tvPlayer?.stop({hideBlock: false});
+    }
+
     openFullScreen({
       reels,
       initialReel: clickedReel,

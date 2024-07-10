@@ -20,10 +20,11 @@ const widgetDivs = document.querySelectorAll('.reels-widget');
 // Inject our component into each div
 widgetDivs.forEach(div => {
   const root = createRoot(div);
+
   root.render(
     <React.StrictMode>
       <StyledEngineProvider injectFirst>
-        <ReelsBlock />
+        <ReelsBlock filter={(div as HTMLElement).dataset.filter} />
         <ModalContainer />
       </StyledEngineProvider>
     </React.StrictMode>,

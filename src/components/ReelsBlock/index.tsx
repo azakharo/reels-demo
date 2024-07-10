@@ -1,17 +1,43 @@
 import React, {FC} from 'react';
-import {Box} from '@mui/material';
+import {Box, Divider} from '@mui/material';
 import useRequest from 'ahooks/es/useRequest';
 
-import {getReels} from 'src/api';
+import {getReelsAll, getReelsForMainPage} from 'src/api';
 import {Reel} from 'src/types';
 import {isMobile} from 'src/utils/systemInfo';
 import ReelsCarousel from '../ReelsCarousel';
 
-const ReelsBlock: FC = () => {
-  const {data, error, loading} = useRequest(getReels);
+interface Props {
+  filter?: string;
+}
+
+const ReelsBlock: FC<Props> = ({filter}) => {
+  const isForMainPage = filter === 'main';
+  const apiMethod = isForMainPage ? getReelsForMainPage : getReelsAll;
+  const {data, error, loading} = useRequest(apiMethod);
 
   if (loading || error) {
     return null;
+  }
+
+  const reelsCarousel = <ReelsCarousel reels={data as Reel[]} />;
+
+  if (isForMainPage) {
+    return (
+      <>
+        <Divider />
+
+        <Box
+          sx={{
+            padding: '30px',
+          }}
+        >
+          {reelsCarousel}
+        </Box>
+
+        <Divider />
+      </>
+    );
   }
 
   return (
@@ -21,7 +47,7 @@ const ReelsBlock: FC = () => {
         backgroundColor: isMobile ? undefined : '#f6f6f6',
       }}
     >
-      <ReelsCarousel reels={data as Reel[]} />
+      {reelsCarousel}
     </Box>
   );
 };

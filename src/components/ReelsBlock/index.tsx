@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Box, Divider} from '@mui/material';
+import {Box} from '@mui/material';
 import useRequest from 'ahooks/es/useRequest';
 
 import {getReelsAll, getReelsForMainPage} from 'src/api';
@@ -21,24 +21,6 @@ const ReelsBlock: FC<Props> = ({filter}) => {
   }
 
   const reelsCarousel = <ReelsCarousel reels={data as Reel[]} />;
-
-  if (isForMainPage) {
-    return (
-      <>
-        <Divider />
-
-        <Box
-          sx={{
-            padding: '30px',
-          }}
-        >
-          {reelsCarousel}
-        </Box>
-
-        <Divider />
-      </>
-    );
-  }
 
   return (
     <Box

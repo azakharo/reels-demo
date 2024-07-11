@@ -14,19 +14,31 @@ if (isProduction) {
   console.log(`Reels version: ${import.meta.env.VITE_APP_VERSION}`);
 }
 
-// Find all widget divs
-const widgetDivs = document.querySelectorAll('.reels-widget');
+const processedDivs: HTMLElement[] = [];
 
-// Inject our component into each div
-widgetDivs.forEach(div => {
-  const root = createRoot(div);
+setInterval(() => {
+  // Find all widget divs
+  const widgetDivs = document.querySelectorAll('.reels-widget');
 
-  root.render(
-    <React.StrictMode>
-      <StyledEngineProvider injectFirst>
-        <ReelsBlock filter={(div as HTMLElement).dataset.filter} />
-        <ModalContainer />
-      </StyledEngineProvider>
-    </React.StrictMode>,
-  );
-});
+  // Inject our component into each div
+  for (const elem of widgetDivs) {
+    const div = elem as HTMLElement;
+
+    if (processedDivs.includes(div)) {
+      continue;
+    }
+
+    const root = createRoot(div);
+
+    root.render(
+      <React.StrictMode>
+        <StyledEngineProvider injectFirst>
+          <ReelsBlock filter={div.dataset.filter} />
+          <ModalContainer />
+        </StyledEngineProvider>
+      </React.StrictMode>,
+    );
+
+    processedDivs.push(div);
+  }
+}, 500);

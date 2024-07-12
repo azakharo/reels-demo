@@ -15,6 +15,8 @@ const openFullScreen = isMobileOrTablet
 
 interface Props {
   reels: Reel[];
+  slideWidth?: string; // any valid HTML width
+  slideHeight?: string; // any valid HTML height
 }
 
 const carouselSettings = {
@@ -26,7 +28,11 @@ const carouselSettings = {
   swipeToSlide: true,
 };
 
-const ReelsCarousel: FC<Props> = ({reels}) => {
+const ReelsCarousel: FC<Props> = ({
+  reels,
+  slideWidth = '264px',
+  slideHeight = '470px',
+}) => {
   const [sliding, setSliding] = useState(false);
   const sliderRef = useRef<Slider>(null);
 
@@ -104,7 +110,8 @@ const ReelsCarousel: FC<Props> = ({reels}) => {
             <CarouselItem
               key={reel.id}
               reel={reel}
-              width="264px"
+              width={slideWidth}
+              height={slideHeight}
               onClick={handleItemClick}
             />
           );

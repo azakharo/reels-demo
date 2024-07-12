@@ -20,7 +20,13 @@ const ReelsBlock: FC<Props> = ({filter}) => {
     return null;
   }
 
-  const reelsCarousel = <ReelsCarousel reels={data as Reel[]} />;
+  const reelsCarousel = (
+    <ReelsCarousel
+      reels={data as Reel[]}
+      slideWidth={isForMainPage ? undefined : '184px'}
+      slideHeight={isForMainPage ? undefined : '327px'}
+    />
+  );
 
   if (isForMainPage) {
     return (

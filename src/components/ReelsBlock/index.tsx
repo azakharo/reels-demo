@@ -47,7 +47,7 @@ const ReelsBlock: FC<Props> = ({filter}) => {
 
       <Box
         sx={{
-          padding: '30px',
+          padding: '30px 0',
         }}
       >
         {reelsCarousel}

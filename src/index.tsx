@@ -6,7 +6,8 @@ import {StyledEngineProvider} from '@mui/material';
 import ReelsBlock from 'src/components/ReelsBlock';
 import {isProduction} from 'src/utils/env';
 
-import './reset.css';
+import './reset.sass';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

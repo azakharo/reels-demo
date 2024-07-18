@@ -5,7 +5,7 @@ import {mapReel} from './mapper';
 
 const getReelsHelper = async (endPointName: string): Promise<Reel[]> => {
   const resp = await axi.get<GetReelsBackendResponseData>(
-    `/api/0/reels/${endPointName}`,
+    `/api/reels/${endPointName}`,
     {
       // basic auth is necessary only on dev stand
       auth: {

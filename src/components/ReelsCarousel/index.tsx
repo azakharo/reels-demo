@@ -3,10 +3,11 @@ import Slider from 'react-slick';
 import {Typography} from '@mui/material';
 
 import {Reel} from 'src/types';
-import {isMobileOrTablet} from 'src/utils/systemInfo';
+import {isDesktop, isMobileOrTablet} from 'src/utils/systemInfo';
 import openFullScreenViewer from '../FullScreenViewer';
 import openFullScreenViewerMobile from '../FullScreenViewerMobile';
 import CarouselItem from './CarouselItem';
+import {NextArrow, PrevArrow} from './customArrows';
 import styles from './styles.module.sass';
 
 const openFullScreen = isMobileOrTablet
@@ -21,11 +22,13 @@ interface Props {
 
 const carouselSettings = {
   dots: false,
-  arrows: false,
+  arrows: isDesktop,
   infinite: false,
   speed: 500,
   variableWidth: true,
   swipeToSlide: true,
+  nextArrow: isDesktop ? <NextArrow /> : undefined,
+  prevArrow: isDesktop ? <PrevArrow /> : undefined,
 };
 
 const ReelsCarousel: FC<Props> = ({

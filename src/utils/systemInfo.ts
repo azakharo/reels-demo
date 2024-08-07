@@ -7,6 +7,7 @@ type DeviceType = IDevice['type'];
 
 const deviceTypeMobile: DeviceType = 'mobile';
 const deviceTypeTablet: DeviceType = 'tablet';
+const deviceTypeDesktop: DeviceType = 'desktop';
 
 const parsedUserAgent = new UAParser();
 
@@ -43,3 +44,4 @@ export const deviceType = getDeviceType();
 export const isMobileOrTablet =
   deviceType === deviceTypeMobile || deviceType === deviceTypeTablet;
 export const isMobile = getDeviceType() === deviceTypeMobile;
+export const isDesktop = getDeviceType() === deviceTypeDesktop;

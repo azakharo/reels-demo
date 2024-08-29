@@ -24,15 +24,7 @@ const iconStyles = {
   fontSize: size,
 };
 
-export const NextArrow: FC<CustomArrowProps> = ({
-  onClick,
-  currentSlide,
-  slideCount,
-}) => {
-  if (!slideCount || currentSlide === slideCount - 1) {
-    return null;
-  }
-
+export const NextArrow: FC<CustomArrowProps> = ({onClick}) => {
   return (
     <IconButton
       onClick={onClick}
@@ -46,15 +38,7 @@ export const NextArrow: FC<CustomArrowProps> = ({
   );
 };
 
-export const PrevArrow: FC<CustomArrowProps> = ({
-  onClick,
-  currentSlide,
-  slideCount,
-}) => {
-  if (!slideCount || currentSlide === 0) {
-    return null;
-  }
-
+export const PrevArrow: FC<CustomArrowProps> = ({onClick}) => {
   return (
     <IconButton
       onClick={onClick}

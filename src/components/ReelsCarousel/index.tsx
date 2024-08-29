@@ -23,7 +23,7 @@ interface Props {
 const carouselSettings = {
   dots: false,
   arrows: isDesktop,
-  infinite: false,
+  infinite: true,
   speed: 500,
   variableWidth: true,
   swipeToSlide: true,
